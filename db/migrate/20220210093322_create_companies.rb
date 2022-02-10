@@ -5,6 +5,7 @@ class CreateCompanies < ActiveRecord::Migration[7.0]
       name varchar NOT NULL,
       github varchar NOT NULL,
       private_key varchar NOT NULL,
+      public_key varchar NOT NULL,
       balance integer,
       created_at timestamp without time zone NOT NULL DEFAULT (now()),
       PRIMARY KEY (id)
