@@ -7,11 +7,11 @@
 #  encrypted_password     :string           default(""), not null
 #  job                    :string           not null
 #  name                   :string           not null
-#  public_key             :string           not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  created_at             :datetime         not null
+#  wallet_id              :string           not null
 #
 # Indexes
 #

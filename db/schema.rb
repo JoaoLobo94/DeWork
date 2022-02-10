@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_10_160154) do
 
   create_table "users", id: :integer, default: nil, force: :cascade do |t|
     t.string "name", null: false
-    t.string "public_key", null: false
+    t.string "wallet_id", null: false
     t.string "job", null: false
     t.datetime "created_at", precision: nil, default: -> { "now()" }, null: false
     t.string "email", default: "", null: false
