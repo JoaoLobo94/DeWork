@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   def create
+    new_user = User.new(user_params)
+    new_user.save
   end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :password, :email, :job, :mobile, access_levels_attributes: [:organization_type, :role_id, :organization_id])
+    params.permit(:email, :name, :password, :job, :wallet_id)
   end
 end
