@@ -2,18 +2,23 @@
 #
 # Table name: contributions
 #
-#  id           :integer          not null, primary key
-#  balance      :integer
+#  id           :bigint           not null, primary key
+#  balance      :decimal(, )
 #  merged       :boolean          default(FALSE)
-#  pull_request :string           not null
-#  type         :string           not null
-#  vote_balance :integer
+#  pull_request :string
+#  type         :string
+#  vote_balance :decimal(, )
 #  created_at   :datetime         not null
-#  company_id   :integer          not null
+#  updated_at   :datetime         not null
+#  company_id   :bigint
+#
+# Indexes
+#
+#  index_contributions_on_company_id  (company_id)
 #
 # Foreign Keys
 #
-#  contributions_company_id_fkey  (company_id => companies.id)
+#  fk_rails_...  (company_id => companies.id)
 #
 class Contribution < ApplicationRecord
   belongs_to :company

@@ -10,57 +10,84 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_10_160154) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "companies", id: :integer, default: nil, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "github", null: false
-    t.string "private_key", null: false
-    t.string "public_key", null: false
-    t.integer "balance"
-    t.datetime "created_at", precision: nil, default: -> { "now()" }, null: false
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "github"
+    t.string "private_key"
+    t.string "public_key"
+    t.decimal "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["github"], name: "index_companies_on_github", unique: true
+    t.index ["name"], name: "index_companies_on_name", unique: true
+    t.index ["private_key"], name: "index_companies_on_private_key", unique: true
+    t.index ["public_key"], name: "index_companies_on_public_key", unique: true
   end
 
-  create_table "contributions", id: :integer, default: nil, force: :cascade do |t|
-    t.string "pull_request", null: false
-    t.string "type", null: false
+  create_table "contributions", force: :cascade do |t|
+    t.string "pull_request"
+    t.string "type"
     t.boolean "merged", default: false
-    t.integer "balance"
-    t.integer "vote_balance"
-    t.integer "company_id", null: false
-    t.datetime "created_at", precision: nil, default: -> { "now()" }, null: false
+    t.decimal "balance"
+    t.decimal "vote_balance"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_contributions_on_company_id"
   end
 
-  create_table "user_companies", id: :integer, default: nil, force: :cascade do |t|
-    t.integer "company_id", null: false
-    t.integer "user_id", null: false
+  create_table "user_companies", force: :cascade do |t|
+    t.bigint "company_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_user_companies_on_company_id"
+    t.index ["user_id"], name: "index_user_companies_on_user_id"
   end
 
-  create_table "user_contributions", id: :integer, default: nil, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "contribution_id", null: false
-    t.integer "balance"
+  create_table "user_contributions", force: :cascade do |t|
+    t.bigint "contribution_id"
+    t.bigint "user_id"
+    t.decimal "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contribution_id"], name: "index_user_contributions_on_contribution_id"
+    t.index ["user_id"], name: "index_user_contributions_on_user_id"
   end
 
-  create_table "users", id: :integer, default: nil, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "wallet_id", null: false
-    t.string "job", null: false
-    t.datetime "created_at", precision: nil, default: -> { "now()" }, null: false
-    t.string "email", default: "", null: false
+  create_table "users", force: :cascade do |t|
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "name"
+    t.string "email"
+    t.json "tokens"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "wallet"
+    t.string "job"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+    t.index ["wallet"], name: "index_users_on_wallet", unique: true
   end
 
-  add_foreign_key "contributions", "companies", name: "contributions_company_id_fkey"
-  add_foreign_key "user_companies", "companies", name: "user_companies_company_id_fkey"
-  add_foreign_key "user_companies", "users", name: "user_companies_user_id_fkey"
-  add_foreign_key "user_contributions", "contributions", name: "user_contributions_contribution_id_fkey"
-  add_foreign_key "user_contributions", "users", name: "user_contributions_user_id_fkey"
+  add_foreign_key "contributions", "companies"
+  add_foreign_key "user_companies", "companies"
+  add_foreign_key "user_companies", "users"
+  add_foreign_key "user_contributions", "contributions"
+  add_foreign_key "user_contributions", "users"
 end

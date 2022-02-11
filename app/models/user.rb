@@ -2,23 +2,39 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
-#  email                  :string           default(""), not null
+#  id                     :bigint           not null, primary key
+#  allow_password_change  :boolean          default(FALSE)
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :inet
+#  email                  :string
 #  encrypted_password     :string           default(""), not null
-#  job                    :string           not null
-#  name                   :string           not null
+#  job                    :string
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :inet
+#  name                   :string
+#  provider               :string           default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  sign_in_count          :integer          default(0), not null
+#  tokens                 :json
+#  uid                    :string           default(""), not null
+#  wallet                 :string
 #  created_at             :datetime         not null
-#  wallet_id              :string           not null
+#  updated_at             :datetime         not null
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid_and_provider      (uid,provider) UNIQUE
+#  index_users_on_wallet                (wallet) UNIQUE
 #
 class User < ApplicationRecord
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  include DeviseTokenAuth::Concerns::User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :user_companies

@@ -2,14 +2,21 @@
 #
 # Table name: user_companies
 #
-#  id         :integer          not null, primary key
-#  company_id :integer          not null
-#  user_id    :integer          not null
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  company_id :bigint
+#  user_id    :bigint
+#
+# Indexes
+#
+#  index_user_companies_on_company_id  (company_id)
+#  index_user_companies_on_user_id     (user_id)
 #
 # Foreign Keys
 #
-#  user_companies_company_id_fkey  (company_id => companies.id)
-#  user_companies_user_id_fkey     (user_id => users.id)
+#  fk_rails_...  (company_id => companies.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class UserCompany < ApplicationRecord
   belongs_to :user
