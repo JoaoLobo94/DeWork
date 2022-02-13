@@ -17,9 +17,14 @@ class CompaniesController < ApplicationController
   end
 
   def update
-
+    @company = Company.find(company_params[:id])
+    @company.update(company_params)
   end
 
+  def index_user_companies
+    @user_companies = Company.find(UserCompany.where(user_id: current_user.id).ids)
+    render json: @user_companies, each_serializer: CompanySerializer
+  end
   private
 
   def company_params
