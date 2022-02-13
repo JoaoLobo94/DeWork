@@ -1,4 +1,4 @@
-class CreateUserContributions < ActiveRecord::Migration[7.0]
+class CreateUserContributions <ActiveRecord::Migration[6.1]
   def change
     create_table :user_contributions do |t|
       t.references :contribution, index: true, foreign_key: true

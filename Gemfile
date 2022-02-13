@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.2'
+gem 'rails', '6.1.4.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -23,9 +23,10 @@ gem 'puma', '~> 5.0'
 gem 'annotate'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
-gem 'devise_token_auth', git: 'https://github.com/lynndylanhurley/devise_token_auth.git', branch: 'master'
-gem 'pry'
+gem 'devise_token_auth'
 gem 'omniauth'
+gem 'pry'
+gem 'active_model_serializers', '~> 0.10.13'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -43,5 +44,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'active_model_serializers', '~> 0.10.13'

@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
+ActiveRecord::Schema.define(version: 2022_02_11_160628) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
     t.string "private_key"
     t.string "public_key"
     t.decimal "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["github"], name: "index_companies_on_github", unique: true
     t.index ["name"], name: "index_companies_on_name", unique: true
     t.index ["private_key"], name: "index_companies_on_private_key", unique: true
@@ -35,16 +36,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
     t.decimal "balance"
     t.decimal "vote_balance"
     t.bigint "company_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_contributions_on_company_id"
   end
 
   create_table "user_companies", force: :cascade do |t|
     t.bigint "company_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_user_companies_on_company_id"
     t.index ["user_id"], name: "index_user_companies_on_user_id"
   end
@@ -53,8 +54,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
     t.bigint "contribution_id"
     t.bigint "user_id"
     t.decimal "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["contribution_id"], name: "index_user_contributions_on_contribution_id"
     t.index ["user_id"], name: "index_user_contributions_on_user_id"
   end
@@ -75,8 +76,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_11_160628) do
     t.string "name"
     t.string "email"
     t.json "tokens"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "wallet"
     t.string "job"
     t.index ["email"], name: "index_users_on_email", unique: true

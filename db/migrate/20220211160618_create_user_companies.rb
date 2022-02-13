@@ -1,4 +1,4 @@
-class CreateUserCompanies < ActiveRecord::Migration[7.0]
+class CreateUserCompanies <ActiveRecord::Migration[6.1]
   def change
     create_table :user_companies do |t|
       t.references :company, index: true, foreign_key: true

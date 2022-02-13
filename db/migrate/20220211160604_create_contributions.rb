@@ -1,4 +1,4 @@
-class CreateContributions < ActiveRecord::Migration[7.0]
+class CreateContributions <ActiveRecord::Migration[6.1]
   def change
     create_table :contributions do |t|
 

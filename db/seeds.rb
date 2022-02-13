@@ -3,5 +3,20 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+user = User.new(
+  email: 'admin@seed.xxx',
+  password: '123456',
+  password_confirmation: '123456',
+  job: 'dev',
+  wallet: 'q180fby4bcb03b7'
+)
+user.save!
+
+company = Company.new(
+  balance: 1.000001231234123,
+  github: 'www.github.com',
+  name: 'Sats',
+  private_key: '0b2f789b7098f20b7298b27098',
+  public_key: 'q180fby4bcb03b7'
+)
+company.save!

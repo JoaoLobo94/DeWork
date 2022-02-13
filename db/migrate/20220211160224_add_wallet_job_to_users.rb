@@ -1,4 +1,4 @@
-class AddWalletJobToUsers < ActiveRecord::Migration[7.0]
+class AddWalletJobToUsers <ActiveRecord::Migration[6.1]
   def change
     add_column :users, :wallet, :string
     add_index :users, :wallet, unique: true
