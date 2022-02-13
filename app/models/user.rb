@@ -38,4 +38,7 @@ class User < ApplicationRecord
   has_many :user_contributions
   has_many :companies, through: :user_companies
   has_many :contributions, through: :user_contributions
+  before_validation do
+    self.uid = email if uid.blank?
+  end
 end

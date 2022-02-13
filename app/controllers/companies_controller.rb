@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!, except: [:index]
 
   def index
     @companies = Company.all
@@ -13,16 +13,16 @@ class CompaniesController < ApplicationController
 
   def create
     @new_company = Company.new(company_params)
-    @new_company << User.find
+    @new_company.users << current_user
   end
 
-  def update; end
+  def update
 
-  def destroy; end
+  end
 
   private
 
   def company_params
-    params.permit(:id, :balance, :github, :name, :private_key, :public_key)
+    params.permit(:github, :name, :private_key)
   end
 end
