@@ -25,6 +25,7 @@ class CompaniesController < ApplicationController
     @user_companies = Company.find(UserCompany.where(user_id: current_user.id).ids)
     render json: @user_companies, each_serializer: CompanySerializer
   end
+
   private
 
   def company_params

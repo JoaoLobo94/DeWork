@@ -1,3 +1,0 @@
-class UserCompaniesController < ApplicationController
- 
-end
