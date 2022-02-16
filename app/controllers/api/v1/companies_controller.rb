@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class Api::V1::CompaniesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index

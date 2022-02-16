@@ -1,4 +1,4 @@
-class ContributionsController < ApplicationController
+class  Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
