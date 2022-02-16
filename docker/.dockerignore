@@ -1,0 +1,5 @@
+../rust_lib/target
+Dockerfile
+.dockerignore
+../.git
+../.gitignore

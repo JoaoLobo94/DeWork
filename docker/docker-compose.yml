@@ -1,0 +1,50 @@
+version: "3.4"
+services:
+  backend:
+    container_name: "dework"
+    build:
+      dockerfile: Dockerfile
+      context: .
+      cache_from:
+        - rust:1.58.0
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - PG_URL=postgres://postgres:docker@postgres:5432/dework?sslmode=disable
+      - PG_POOL_SIZE=10
+      - REDIS_URL=redis://redis
+      - DATABASE_URL="postgres://postgres:docker@postgres:5432/dework?sslmode=disable"
+    networks:
+      - dework
+    tty: true
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    ports:
+      - "8000:8000"
+
+  postgres:
+    container_name: "dework-postgres"
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: "docker"
+    networks:
+      - dework
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:latest
+    container_name: dework-redis
+    expose:
+      - 6379
+    networks:
+      - dework
+    ports:
+      - "6379:6379"
+
+networks:
+  dework:
+    driver: bridge

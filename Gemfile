@@ -28,6 +28,7 @@ gem 'devise_token_auth'
 gem 'octokit', '~> 4.0'
 gem 'omniauth'
 gem 'pry'
+gem 'rutie'
 gem 'sidekiq'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
