@@ -14,21 +14,21 @@ gem 'puma', '~> 5.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# gem 'bcrypt', '~>bundle gem rutie_ruby_example 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'annotate'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'devise_token_auth'
+gem 'octokit', '~> 4.0'
 gem 'omniauth'
 gem 'pry'
-gem 'active_model_serializers', '~> 0.10.13'
 gem 'sidekiq'
-gem "octokit", "~> 4.0"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'

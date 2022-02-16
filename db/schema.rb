@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
 
   create_table "contributions", force: :cascade do |t|
     t.string "pull_request"
-    t.string "type"
+    t.string "job_type"
     t.boolean "merged", default: false
     t.decimal "balance"
     t.decimal "vote_balance"

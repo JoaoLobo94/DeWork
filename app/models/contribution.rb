@@ -4,9 +4,9 @@
 #
 #  id           :bigint           not null, primary key
 #  balance      :decimal(, )
+#  job_type     :string
 #  merged       :boolean          default(FALSE)
 #  pull_request :string
-#  type         :string
 #  vote_balance :decimal(, )
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -22,6 +22,6 @@
 #
 class Contribution < ApplicationRecord
   belongs_to :company
-  has_many :users, through: :user_contributions
   has_many :user_contributions
+  has_many :users, through: :user_contributions
 end

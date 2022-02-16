@@ -36,8 +36,8 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   has_many :user_companies
   has_many :user_contributions
-  has_many :companies, through: :user_companies
-  has_many :contributions, through: :user_contributions
+  has_many :companies, through: :user_companies, dependent: :destroy
+  has_many :contributions, through: :user_contributions, dependent: :destroy
   before_validation do
     self.uid = email if uid.blank?
   end

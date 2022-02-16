@@ -3,6 +3,14 @@
 #
 # Examples:
 #
+
+#fix has many belongs to associations 
+# Contribution.last.users
+# Contribution.last.company
+# Company.last.contributions
+# Company.last.users
+# Users.last.companies
+# Users.last.contributions
 user = User.new(
   email: 'admin@seed.xxx',
   password: '123456',
@@ -19,4 +27,16 @@ company = Company.new(
   private_key: '0b2f789b7098f20b7298b27098',
   public_key: 'q180fby4bcb03b7'
 )
-company.save!
+
+user.companies << company
+
+contribution = Contribution.new(
+  balance: 1.000001231234123,
+  job_type: 'farmer',
+  merged: true,
+  pull_request: 'zabazaba',
+  vote_balance: 1,
+  company_id: 1
+)
+
+user.contributions << contribution
