@@ -24,8 +24,8 @@ company = Company.new(
   balance: 1.000001231234123,
   github: 'www.github.com',
   name: 'Sats',
-  private_key: '0b2f789b7098f20b7298b27098',
-  public_key: 'q180fby4bcb03b7'
+  p_key: '0b2f789b7098f20b7298b27098',
+  pub_key: 'q180fby4bcb03b7'
 )
 
 user.companies << company

@@ -12,7 +12,9 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  name                   :string
+#  p_key                  :string
 #  provider               :string           default("email"), not null
+#  pub_key                :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -26,6 +28,7 @@
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_p_key                 (p_key) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #  index_users_on_wallet                (wallet) UNIQUE

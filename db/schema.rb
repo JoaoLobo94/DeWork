@@ -18,15 +18,17 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "github"
-    t.string "private_key"
-    t.string "public_key"
+    t.string "p_key"
+    t.string "pub_key"
+    t.string "wallet"
     t.decimal "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["github"], name: "index_companies_on_github", unique: true
     t.index ["name"], name: "index_companies_on_name", unique: true
-    t.index ["private_key"], name: "index_companies_on_private_key", unique: true
-    t.index ["public_key"], name: "index_companies_on_public_key", unique: true
+    t.index ["p_key"], name: "index_companies_on_p_key", unique: true
+    t.index ["pub_key"], name: "index_companies_on_pub_key", unique: true
+    t.index ["wallet"], name: "index_companies_on_wallet", unique: true
   end
 
   create_table "contributions", force: :cascade do |t|
@@ -79,8 +81,11 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "wallet"
+    t.string "p_key"
+    t.string "pub_key"
     t.string "job"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["p_key"], name: "index_users_on_p_key", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["wallet"], name: "index_users_on_wallet", unique: true
