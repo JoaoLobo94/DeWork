@@ -22,9 +22,11 @@ gem 'puma', '~> 5.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'annotate'
+gem 'blockcypher-ruby', '~> 0.2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'devise_token_auth'
+gem 'github_api', '~> 0.19.0'
 gem 'octokit', '~> 4.0'
 gem 'omniauth'
 gem 'pry'
@@ -32,7 +34,7 @@ gem 'rack-cors'
 gem 'rest-client'
 gem 'rutie'
 gem 'sidekiq'
-gem 'blockcypher-ruby', '~> 0.2.7'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
