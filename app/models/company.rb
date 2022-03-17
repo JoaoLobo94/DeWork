@@ -6,6 +6,7 @@
 #  balance    :decimal(, )
 #  github     :string
 #  name       :string
+#  owner      :integer
 #  p_key      :string
 #  pub_key    :string
 #  wallet     :string

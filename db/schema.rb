@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
     t.string "name"
     t.string "github"
     t.string "p_key"
+    t.integer "owner"
     t.string "pub_key"
     t.string "wallet"
     t.decimal "balance"

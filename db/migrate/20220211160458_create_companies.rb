@@ -4,6 +4,7 @@ class CreateCompanies <ActiveRecord::Migration[6.1]
       t.string :name
       t.string :github
       t.string :p_key
+      t.integer :owner
       t.string :pub_key
       t.string :wallet
       t.decimal :balance
