@@ -16,8 +16,8 @@ class BlockcypherService
     @node_connection.faucet(address, amount)
   end
 
-  def address_balance(balance)
-    @node_connection.address_balance(balance)
+  def address_balance(address)
+    @node_connection.address_balance(address)
   end
 
   def generate_new_wallet_with_address(name, address)

@@ -3,6 +3,12 @@ class Api::V1::UsersController < ApplicationController
 
   def create_transaction
     current_user.transfer_funds(user_params['amount'], user_params['destination_wallet'])
+    render :success
+  end
+
+  def balance
+    current_user.transfer_funds(user_params['amount'], user_params['destination_wallet'])
+    render json: current_user.get_balance
   end
 
   private

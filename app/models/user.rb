@@ -54,4 +54,8 @@ class User < ApplicationRecord
   def transfer_funds(amount, receiving_wallet)
     BlockcypherService.new.new_transaction(wallet, receiving_wallet, amount)
   end
+
+  def get_balance
+    BlockcypherService.new.address_balance(wallet)
+  end
 end
