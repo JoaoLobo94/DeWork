@@ -3,9 +3,10 @@
 # Table name: contributions
 #
 #  id           :bigint           not null, primary key
+#  accepted     :boolean          default(FALSE)
 #  balance      :decimal(, )
+#  creator      :integer
 #  job_type     :string
-#  merged       :boolean          default(FALSE)
 #  pull_request :string
 #  vote_balance :decimal(, )
 #  created_at   :datetime         not null

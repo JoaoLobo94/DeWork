@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         resources :contributions, except: [:destroy] do
           get 'user_contributions' => 'companies#index_user_contributions'
           get 'check_balance' => 'contribution#balance'
+          get 'add_user' => 'contribution#add_user_to_contribution'
         end
       end
       get 'user_companies' => 'companies#index_user_companies'

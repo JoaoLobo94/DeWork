@@ -1,6 +1,6 @@
-class  Api::V1::ContributionsController < ApplicationController
+class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_contribution, only: [:show, :update, :balance]
+  before_action :set_contribution, only: %i[show update balance set_contribution]
 
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
@@ -8,7 +8,7 @@ class  Api::V1::ContributionsController < ApplicationController
   end
 
   def index
-    set_company 
+    set_company
     @company.contributions
   end
 
@@ -20,6 +20,7 @@ class  Api::V1::ContributionsController < ApplicationController
     set_company
     @new_contribution = Contribution.new(contributions_params)
     @new_contribution.users << current_user
+    @new_contribution.creator = current_user
     @new_contribution.save!
     render json: @new_contribution
   end
@@ -33,10 +34,19 @@ class  Api::V1::ContributionsController < ApplicationController
     render json: @contribution.balance
   end
 
+  def add_user_to_contribution
+    if current_user.id == @contribution.creator
+      @contribution.users << user_to_add
+      render :success
+    else
+      render json: 'User not added'
+    end
+  end
+
   private
 
   def contributions_params
-    params.permit(:pull_request, :job_type, :vote_balance, :company_id, :merged, :balance)
+    params.permit(:pull_request, :job_type, :vote_balance, :company_id, :merged, :balance, :user_to_add)
   end
 
   def set_company

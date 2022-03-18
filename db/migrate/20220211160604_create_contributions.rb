@@ -5,6 +5,7 @@ class CreateContributions <ActiveRecord::Migration[6.1]
       t.string :job_type
       t.boolean :accepted, default: false
       t.decimal :balance
+      t.integer :creator
       t.decimal :vote_balance
       t.references :company, index: true, foreign_key: true
 
