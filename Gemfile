@@ -26,6 +26,7 @@ gem 'blockcypher-ruby', '~> 0.2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'devise_token_auth'
+gem 'dotenv-rails'
 gem 'github_api', '~> 0.19.0'
 gem 'octokit', '~> 4.0'
 gem 'omniauth'

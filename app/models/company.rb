@@ -25,4 +25,11 @@ class Company < ApplicationRecord
   has_many :contributions
   has_many :user_companies
   has_many :users, through: :user_companies
+  after_create :new_wallet
+
+  def new_wallet
+    address_info = BlockcypherService.new.generate_address
+
+    update(wallet: address_info['address'], p_key: address_info['private'], pub_key: address_info['public'])
+  end
 end

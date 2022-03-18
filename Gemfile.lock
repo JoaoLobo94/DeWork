@@ -102,6 +102,10 @@ GEM
       rails (>= 4.2.0, < 6.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     eventmachine (1.2.7)
     faraday (1.10.0)
@@ -283,6 +287,7 @@ DEPENDENCIES
   byebug
   devise
   devise_token_auth
+  dotenv-rails
   github_api (~> 0.19.0)
   listen (~> 3.3)
   octokit (~> 4.0)
