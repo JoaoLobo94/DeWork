@@ -1,5 +1,7 @@
 class  Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_contribution, only: [:show, :update, :balance]
+
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
     render json: @user_contributions
@@ -11,7 +13,6 @@ class  Api::V1::ContributionsController < ApplicationController
   end
 
   def show
-    @contribution = Contribution.find(contributions_params[:id])
     render json: @contribution
   end
 
@@ -24,9 +25,12 @@ class  Api::V1::ContributionsController < ApplicationController
   end
 
   def update
-    @contribution = Contribution.find(contributions_params[:id])
     @contribution.update(contributions_params)
     render json: @contribution
+  end
+
+  def balance
+    render json: @contribution.balance
   end
 
   private
@@ -37,5 +41,9 @@ class  Api::V1::ContributionsController < ApplicationController
 
   def set_company
     @company = Company.find(params[:company_id])
+  end
+
+  def set_contribution
+    @contribution = Contribution.find(contributions_params[:id])
   end
 end

@@ -7,7 +7,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def balance
-    current_user.transfer_funds(user_params['amount'], user_params['destination_wallet'])
     render json: current_user.get_balance
   end
 

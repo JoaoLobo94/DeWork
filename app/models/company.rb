@@ -29,7 +29,14 @@ class Company < ApplicationRecord
 
   def new_wallet
     address_info = BlockcypherService.new.generate_address
-
     update(wallet: address_info['address'], p_key: address_info['private'], pub_key: address_info['public'])
+  end
+
+  def transfer_funds(amount, receiving_wallet)
+    BlockcypherService.new.new_transaction(wallet, receiving_wallet, amount)
+  end
+
+  def get_balance
+    BlockcypherService.new.address_balance(wallet)
   end
 end

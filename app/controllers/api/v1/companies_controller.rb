@@ -1,5 +1,6 @@
 class Api::V1::CompaniesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :set_company, except: [:index, :create]
 
   def index
     @companies = Company.all
@@ -7,7 +8,6 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def show
-    @company = Company.find(company_params[:id])
     render json: @company, serializer: CompanySerializer
   end
 
@@ -19,7 +19,6 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def update
-    @company = Company.find(company_params[:id])
     @company.update(company_params)
     render json: @company, serializer: CompanySerializer
   end
@@ -29,9 +28,22 @@ class Api::V1::CompaniesController < ApplicationController
     render json: @user_companies, each_serializer: CompanySerializer
   end
 
+  def create_transaction
+    @company.transfer_funds(user_params['amount'], user_params['destination_wallet'])
+    render :success
+  end
+
+  def balance
+    render json: @company.get_balance
+  end
+
   private
 
   def company_params
-    params.permit(:github, :name, :private_key)
+    params.permit(:github, :name, :private_key, :amount, :destination_wallet)
+  end
+
+  def set_company
+    @company = Company.find(company_params[:id])
   end
 end
