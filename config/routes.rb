@@ -14,6 +14,9 @@ Rails.application.routes.draw do
           get 'user_contributions' => 'companies#index_user_contributions'
           get 'check_balance' => 'contribution#balance'
           get 'add_user' => 'contribution#add_user_to_contribution'
+          get 'vote' => 'contribution#vote_on_value'
+          get 'start_work' => 'contribution#accept_start_work_contribution'
+          get 'merge_request' => 'contribution#accept_finished_contribution'
         end
       end
       get 'user_companies' => 'companies#index_user_companies'

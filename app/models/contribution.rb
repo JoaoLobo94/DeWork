@@ -2,16 +2,18 @@
 #
 # Table name: contributions
 #
-#  id           :bigint           not null, primary key
-#  accepted     :boolean          default(FALSE)
-#  balance      :decimal(, )
-#  creator      :integer
-#  job_type     :string
-#  pull_request :string
-#  vote_balance :decimal(, )
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  company_id   :bigint
+#  id                 :bigint           not null, primary key
+#  accepted_for_start :boolean          default(FALSE)
+#  balance            :decimal(, )
+#  creator            :integer
+#  job_type           :string
+#  merged             :boolean          default(FALSE)
+#  number_of_votes    :integer
+#  pull_request       :string
+#  vote_balance       :decimal(, )
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  company_id         :bigint
 #
 # Indexes
 #
@@ -25,4 +27,14 @@ class Contribution < ApplicationRecord
   belongs_to :company
   has_many :user_contributions
   has_many :users, through: :user_contributions
+
+
+  def calculate_market_value(vote_value)
+    if number_of_votes > 0
+        #implement algorith
+        #update()
+    else
+      update(vote_balance: vote_value) 
+    end
+  end
 end

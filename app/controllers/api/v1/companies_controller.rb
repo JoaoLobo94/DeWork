@@ -1,6 +1,6 @@
 class Api::V1::CompaniesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_company, except: [:index, :create]
+  before_action :set_company, except: [:index, :create, :create_transaction]
 
   def index
     @companies = Company.all
