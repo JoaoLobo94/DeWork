@@ -1,7 +1,7 @@
 class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_contribution, only: %i[show update balance set_contribution accept_work_contribution vote_on_value]
-  before_action :set_company, only: %i[index create]
+  before_action :set_contribution, only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value]
+  before_action :set_company, only: %i[index create accept_finished_contribution]
 
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
@@ -48,6 +48,7 @@ class Api::V1::ContributionsController < ApplicationController
 
     @contribution.accepted_for_start = true
     @contribution.save!
+    render :success
   end
 
   def accept_finished_contribution
@@ -55,12 +56,15 @@ class Api::V1::ContributionsController < ApplicationController
 
     @contribution.merged = true
     @contribution.save!
+    @company.bulk_funds_transfer(@contribution.current_value, @contribution.users)
+    render :success
   end
 
   def vote_on_value
     return unless contributions_params[:value]
 
     @contribution.calculate_market_value(contributions_params[:value])
+    render :success
   end
 
   private

@@ -42,10 +42,9 @@ class Contribution < ApplicationRecord
       sorted_votes.pop(rounded_quarter_of_votes)
       number_of_votes_for_mean = sorted_votes.count
       market_value = number_of_votes_for_mean.sum(0.0) / number_of_votes_for_mean.count
-      update(current_value: market_value)
     else
       market_value = aggregated_vote_amounts.sum(0.0) / number_of_votes
-      update(current_value: market_value)
     end
+    update(current_value: market_value)
   end
 end

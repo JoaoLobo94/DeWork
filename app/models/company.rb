@@ -40,4 +40,13 @@ class Company < ApplicationRecord
   def get_balance
     BlockcypherService.new.address_balance(wallet)
   end
+
+  def bulk_funds_transfer(total_amount, receivers)
+    amount_of_transfers = receivers.count
+    amount_for_each = total_amount / amount_of_transfers
+
+    receivers.each  do |receiver|
+      transfer_funds(amount_for_each, receiver.wallet)
+    end
+  end
 end
