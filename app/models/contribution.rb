@@ -6,10 +6,12 @@
 #  accepted_for_start :boolean          default(FALSE)
 #  creator            :integer
 #  current_value      :decimal(, )
+#  description        :text
 #  job_type           :string
 #  merged             :boolean          default(FALSE)
 #  number_of_votes    :integer
 #  pull_request       :string
+#  title              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  company_id         :bigint

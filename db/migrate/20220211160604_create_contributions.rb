@@ -8,6 +8,8 @@ class CreateContributions <ActiveRecord::Migration[6.1]
       t.integer :creator
       t.integer :number_of_votes
       t.decimal :current_value
+      t.string :title
+      t.text :description
       t.references :company, index: true, foreign_key: true
 
       t.timestamps

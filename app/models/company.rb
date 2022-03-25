@@ -2,16 +2,17 @@
 #
 # Table name: companies
 #
-#  id         :bigint           not null, primary key
-#  balance    :decimal(, )
-#  github     :string
-#  name       :string
-#  owner      :integer
-#  p_key      :string
-#  pub_key    :string
-#  wallet     :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :bigint           not null, primary key
+#  balance     :decimal(, )
+#  description :text
+#  github      :string
+#  name        :string
+#  owner       :integer
+#  p_key       :string
+#  pub_key     :string
+#  wallet      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #

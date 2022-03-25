@@ -2,6 +2,7 @@ class CreateCompanies <ActiveRecord::Migration[6.1]
   def change
     create_table :companies do |t|
       t.string :name
+      t.text :description
       t.string :github
       t.string :p_key
       t.integer :owner

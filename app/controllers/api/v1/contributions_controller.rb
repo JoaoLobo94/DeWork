@@ -67,7 +67,7 @@ class Api::V1::ContributionsController < ApplicationController
 
   def contributions_params
     params.permit(:pull_request, :job_type, :company_id, :user_to_add,
-                  :accept_start_work_contribution, :accept_finished_contribution, :value)
+                  :accept_start_work_contribution, :accept_finished_contribution, :value, :title, :description)
   end
 
   def set_company

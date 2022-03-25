@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2022_03_24_190556) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.string "github"
     t.string "p_key"
     t.integer "owner"
@@ -40,6 +41,8 @@ ActiveRecord::Schema.define(version: 2022_03_24_190556) do
     t.integer "creator"
     t.integer "number_of_votes"
     t.decimal "current_value"
+    t.string "title"
+    t.text "description"
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -40,7 +40,7 @@ class Api::V1::CompaniesController < ApplicationController
   private
 
   def company_params
-    params.permit(:github, :name, :private_key, :amount, :destination_wallet)
+    params.permit(:github, :name, :private_key, :amount, :destination_wallet, :description)
   end
 
   def set_company
