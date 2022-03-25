@@ -31,11 +31,11 @@ company = Company.new(
 user.companies << company
 
 contribution = Contribution.new(
-  balance: 1.000001231234123,
+  current_value: 1.000001231234123,
   job_type: 'farmer',
   merged: true,
+  aggregated_vote_amounts: [19, 20, 30],
   pull_request: 'zabazaba',
-  vote_balance: 1,
   company_id: 1
 )
 

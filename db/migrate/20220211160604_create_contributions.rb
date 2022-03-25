@@ -6,7 +6,7 @@ class CreateContributions <ActiveRecord::Migration[6.1]
       t.boolean :merged, default: false
       t.boolean :accepted_for_start, default: false
       t.integer :creator
-      t.integer :number_of_votes
+      t.json :aggregated_vote_amounts, default: []
       t.decimal :current_value
       t.string :title
       t.text :description

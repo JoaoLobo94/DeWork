@@ -2,19 +2,19 @@
 #
 # Table name: contributions
 #
-#  id                 :bigint           not null, primary key
-#  accepted_for_start :boolean          default(FALSE)
-#  creator            :integer
-#  current_value      :decimal(, )
-#  description        :text
-#  job_type           :string
-#  merged             :boolean          default(FALSE)
-#  number_of_votes    :integer
-#  pull_request       :string
-#  title              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  company_id         :bigint
+#  id                      :bigint           not null, primary key
+#  accepted_for_start      :boolean          default(FALSE)
+#  aggregated_vote_amounts :json
+#  creator                 :integer
+#  current_value           :decimal(, )
+#  description             :text
+#  job_type                :string
+#  merged                  :boolean          default(FALSE)
+#  pull_request            :string
+#  title                   :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  company_id              :bigint
 #
 # Indexes
 #
@@ -30,13 +30,22 @@ class Contribution < ApplicationRecord
   has_many :replies
   has_many :users, through: :user_contributions
 
-
   def calculate_market_value(vote_value)
-    if number_of_votes > 0
-        #implement algorith
-        #update()
+    updated_votes = aggregated_vote_amounts << vote_value
+    update(aggregated_vote_amounts: updated_votes)
+    number_of_votes = aggregated_vote_amounts.count
+    if number_of_votes > 10
+      one_quarter_of_votes = 0.25 * number_of_votes
+      rounded_quarter_of_votes = one_quarter_of_votes.to_i
+      sorted_votes = aggregated_vote_amounts.sort
+      sorted_votes.shift(rounded_quarter_of_votes)
+      sorted_votes.pop(rounded_quarter_of_votes)
+      number_of_votes_for_mean = sorted_votes.count
+      market_value = number_of_votes_for_mean.sum(0.0) / number_of_votes_for_mean.count
+      update(current_value: market_value)
     else
-      update(vote_balance: vote_value) 
+      market_value = aggregated_vote_amounts.sum(0.0) / number_of_votes
+      update(current_value: market_value)
     end
   end
 end
