@@ -12,7 +12,7 @@ class Api::V1::RepliesController < ApplicationController
   end
 
   def update
-    render :success if @reply.update(body: reply_params['body'], title: reply_params['title'])
+    render :success if @reply.update(body: reply_params[:body], title: reply_params[:title])
   end
 
   private

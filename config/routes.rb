@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         get 'send_transaction' => 'company#create_transaction'
         resources :contributions, except: [:destroy] do
           resources :replies, except: [:destroy, :show, :edit]
+          resources :participation_requests, only: [:create, :index] do
+            get 'accept_participation' => 'participation_request#accept_participation'
+          end
           get 'user_contributions' => 'companies#index_user_contributions'
           get 'check_balance' => 'contribution#balance'
           get 'add_user' => 'contribution#add_user_to_contribution'

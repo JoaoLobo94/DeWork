@@ -1,6 +1,6 @@
 class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_contribution, only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value]
+  before_action :set_contribution, only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value request_participation]
   before_action :set_company, only: %i[index create accept_finished_contribution]
 
   def index_user_contributions
@@ -31,9 +31,6 @@ class Api::V1::ContributionsController < ApplicationController
 
   def balance
     render json: @contribution.balance
-  end
-
-  def request_participation
   end
 
   def add_user_to_contribution

@@ -52,9 +52,11 @@ ActiveRecord::Schema.define(version: 2022_03_25_183953) do
   create_table "participation_requests", force: :cascade do |t|
     t.bigint "contribution_id"
     t.bigint "user_id"
+    t.bigint "company_id"
     t.boolean "accepted"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_participation_requests_on_company_id"
     t.index ["contribution_id"], name: "index_participation_requests_on_contribution_id"
     t.index ["user_id"], name: "index_participation_requests_on_user_id"
   end
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_183953) do
   end
 
   add_foreign_key "contributions", "companies"
+  add_foreign_key "participation_requests", "companies"
   add_foreign_key "participation_requests", "contributions"
   add_foreign_key "participation_requests", "users"
   add_foreign_key "replies", "contributions"

@@ -25,6 +25,7 @@
 class Company < ApplicationRecord
   has_many :contributions
   has_many :user_companies
+  has_many :participation_requests
   has_many :users, through: :user_companies
   after_create :new_wallet
 
