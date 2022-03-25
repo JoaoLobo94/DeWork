@@ -33,6 +33,9 @@ class Api::V1::ContributionsController < ApplicationController
     render json: @contribution.balance
   end
 
+  def request_participation
+  end
+
   def add_user_to_contribution
     if current_user.id == @contribution.creator
       @contribution.users << user_to_add

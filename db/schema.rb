@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_190556) do
+ActiveRecord::Schema.define(version: 2022_03_25_183953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2022_03_24_190556) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_contributions_on_company_id"
+  end
+
+  create_table "participation_requests", force: :cascade do |t|
+    t.bigint "contribution_id"
+    t.bigint "user_id"
+    t.boolean "accepted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contribution_id"], name: "index_participation_requests_on_contribution_id"
+    t.index ["user_id"], name: "index_participation_requests_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -107,6 +117,8 @@ ActiveRecord::Schema.define(version: 2022_03_24_190556) do
   end
 
   add_foreign_key "contributions", "companies"
+  add_foreign_key "participation_requests", "contributions"
+  add_foreign_key "participation_requests", "users"
   add_foreign_key "replies", "contributions"
   add_foreign_key "user_companies", "companies"
   add_foreign_key "user_companies", "users"
