@@ -1,6 +1,7 @@
 class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_contribution, only: %i[show update balance set_contribution accept_work_contribution vote_on_value]
+  before_action :set_company, only: %i[index create]
 
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
@@ -8,7 +9,6 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def index
-    set_company
     @company.contributions
   end
 
@@ -17,7 +17,6 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def create
-    set_company
     @new_contribution = Contribution.new(contributions_params)
     @new_contribution.users << current_user
     @new_contribution.creator = current_user

@@ -25,6 +25,7 @@
 class Contribution < ApplicationRecord
   belongs_to :company
   has_many :user_contributions
+  has_many :replies
   has_many :users, through: :user_contributions
 
 

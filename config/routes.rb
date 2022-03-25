@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         get 'check_balance' => 'company#balance'
         get 'send_transaction' => 'company#create_transaction'
         resources :contributions, except: [:destroy] do
+          resources :replies, except: [:destroy, :show, :edit]
           get 'user_contributions' => 'companies#index_user_contributions'
           get 'check_balance' => 'contribution#balance'
           get 'add_user' => 'contribution#add_user_to_contribution'
