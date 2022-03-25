@@ -4,13 +4,12 @@
 #
 #  id                 :bigint           not null, primary key
 #  accepted_for_start :boolean          default(FALSE)
-#  balance            :decimal(, )
 #  creator            :integer
+#  current_value      :decimal(, )
 #  job_type           :string
 #  merged             :boolean          default(FALSE)
 #  number_of_votes    :integer
 #  pull_request       :string
-#  vote_balance       :decimal(, )
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  company_id         :bigint

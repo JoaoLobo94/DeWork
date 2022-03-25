@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_11_160628) do
+ActiveRecord::Schema.define(version: 2022_03_24_190556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,14 +37,23 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
     t.string "job_type"
     t.boolean "merged", default: false
     t.boolean "accepted_for_start", default: false
-    t.decimal "balance"
     t.integer "creator"
     t.integer "number_of_votes"
-    t.decimal "vote_balance"
+    t.decimal "current_value"
     t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_contributions_on_company_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.integer "parent_id"
+    t.bigint "contribution_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contribution_id"], name: "index_replies_on_contribution_id"
   end
 
   create_table "user_companies", force: :cascade do |t|
@@ -59,7 +68,6 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
   create_table "user_contributions", force: :cascade do |t|
     t.bigint "contribution_id"
     t.bigint "user_id"
-    t.decimal "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contribution_id"], name: "index_user_contributions_on_contribution_id"
@@ -96,6 +104,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_160628) do
   end
 
   add_foreign_key "contributions", "companies"
+  add_foreign_key "replies", "contributions"
   add_foreign_key "user_companies", "companies"
   add_foreign_key "user_companies", "users"
   add_foreign_key "user_contributions", "contributions"

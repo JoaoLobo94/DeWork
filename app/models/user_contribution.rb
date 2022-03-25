@@ -3,7 +3,6 @@
 # Table name: user_contributions
 #
 #  id              :bigint           not null, primary key
-#  balance         :decimal(, )
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  contribution_id :bigint
