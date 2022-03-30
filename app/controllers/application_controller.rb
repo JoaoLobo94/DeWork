@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[job wallet name p_key pub_key])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[job name])
   end
 
   def show_not_found_errors(exception)
