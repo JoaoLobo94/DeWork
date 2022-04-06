@@ -4,23 +4,23 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources 'users', except: %i[destroy create edit show update index] do
-        get 'send_transaction' => 'user#create_transaction'
-        get 'check_balance' => 'user#balance'
+        get 'send_transaction' => 'users#create_transaction'
+        get 'check_balance' => 'users#balance'
       end
       resources :companies, except: [:destroy] do
-        get 'check_balance' => 'company#balance'
-        get 'send_transaction' => 'company#create_transaction'
+        get 'check_balance' => 'companies#balance'
+        get 'send_transaction' => 'companies#create_transaction'
         resources :contributions, except: [:destroy] do
           resources :replies, except: [:destroy, :show, :edit]
           resources :participation_requests, only: [:create, :index] do
-            get 'accept_participation' => 'participation_request#accept_participation'
+            get 'accept_participation' => 'participation_requests#accept_participation'
           end
           get 'user_contributions' => 'companies#index_user_contributions'
-          get 'check_balance' => 'contribution#balance'
-          get 'add_user' => 'contribution#add_user_to_contribution'
-          get 'vote' => 'contribution#vote_on_value'
-          get 'start_work' => 'contribution#accept_start_work_contribution'
-          get 'merge_request' => 'contribution#accept_finished_contribution'
+          get 'check_balance' => 'contributions#balance'
+          get 'add_user' => 'contributions#add_user_to_contribution'
+          get 'vote' => 'contributions#vote_on_value'
+          get 'start_work' => 'contributions#accept_start_work_contribution'
+          get 'merge_request' => 'contributions#accept_finished_contribution'
         end
       end
       get 'user_companies' => 'companies#index_user_companies'
