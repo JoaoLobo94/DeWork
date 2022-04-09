@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources 'users', except: %i[destroy create edit show update index] do
-        get 'send_transaction' => 'users#create_transaction'
+        post 'send_transaction' => 'users#create_transaction'
         get 'check_balance' => 'users#balance'
       end
       resources :companies, except: [:destroy] do

@@ -45,7 +45,7 @@ class BlockcypherService
   end
 
   def new_transaction(sending_address, receiving_address, amount)
-    @node_connection.transaction_new(sending_address, receiving_address, amount)
+    @node_connection.transaction_new([sending_address], [receiving_address], amount.to_i)
   end
 
   def transaction_status(txid)
