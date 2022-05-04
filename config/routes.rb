@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources 'users', except: %i[destroy create edit show update index] do
+      resources 'users', except: %i[destroy create edit update index] do
         post 'send_transaction' => 'users#create_transaction'
         get 'check_balance' => 'users#balance'
       end

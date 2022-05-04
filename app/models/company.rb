@@ -39,7 +39,7 @@ class Company < ApplicationRecord
   end
 
   def get_balance
-    BlockcypherService.new.address_balance(wallet)
+    balance = BlockcypherService.new.address_balance(wallet)
   end
 
   def bulk_funds_transfer(total_amount, receivers)

@@ -14,11 +14,13 @@ class Api::V1::CompaniesController < ApplicationController
   def create
     @new_company = Company.new(company_params)
     @new_company.users << current_user
+    @new_company.owner = current_user.id
     @new_company.save!
     render json: @new_company, serializer: CompanySerializer
   end
 
   def update
+    @company.users << User.find(company_params[:user])
     @company.update(company_params)
     render json: @company, serializer: CompanySerializer
   end
@@ -40,7 +42,7 @@ class Api::V1::CompaniesController < ApplicationController
   private
 
   def company_params
-    params.permit(:github, :name, :private_key, :amount, :destination_wallet, :description)
+    params.permit(:github, :name, :amount, :destination_wallet, :description, :user)
   end
 
   def set_company
