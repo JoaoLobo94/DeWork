@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user = User.find_by(email: user_params[:user_email])
+    @user = User.find(user_params[:id])
     render json: @user, serializer: UserSerializer
   end
 
@@ -17,6 +17,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:amount, :destination_wallet, :user_email)
+    params.permit(:amount, :destination_wallet, :id)
   end
 end

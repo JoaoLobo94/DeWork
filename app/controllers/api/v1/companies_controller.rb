@@ -46,10 +46,10 @@ class Api::V1::CompaniesController < ApplicationController
   private
 
   def company_params
-    params.permit(:github, :name, :amount, :destination_wallet, :description)
+    params.permit(:github, :name, :amount, :destination_wallet, :description, :company_id)
   end
 
   def set_company
-    @company = Company.find(company_params[:id])
+    @company = Company.find(company_params[:company_id])
   end
 end
