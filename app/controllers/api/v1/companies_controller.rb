@@ -24,10 +24,6 @@ class Api::V1::CompaniesController < ApplicationController
     render json: @company, serializer: CompanySerializer
   end
 
-  def index_company_contributions
-    @company.contributions
-    render json: @company.contributions
-  end
 
   def index_user_companies
     @user_companies = Company.where(id: UserCompany.where(user_id: current_user.id).map(&:company_id))

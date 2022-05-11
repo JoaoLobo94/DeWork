@@ -9,7 +9,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def index
-    @company.contributions
+    render json: @company.contributions
   end
 
   def show

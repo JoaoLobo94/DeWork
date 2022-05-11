@@ -10,7 +10,6 @@ Rails.application.routes.draw do
       resources :companies, except: [:destroy] do
         get 'check_balance' => 'companies#balance'
         get 'send_transaction' => 'companies#create_transaction'
-        get 'company_contributions' => 'companies#index_company_contributions'
         resources :contributions, except: [:destroy] do
           resources :replies, except: [:destroy, :show, :edit]
           resources :participation_requests, only: [:create, :index] do
