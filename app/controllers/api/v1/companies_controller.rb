@@ -30,7 +30,7 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def index_user_companies
-    @user_companies = Company.where(id: UserCompany.where(user_id: current_user.id).ids)
+    @user_companies = Company.where(id: UserCompany.where(user_id: current_user.id).map(&:company_id))
     render json: @user_companies, each_serializer: CompanySerializer
   end
 
