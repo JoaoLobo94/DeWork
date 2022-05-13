@@ -32,6 +32,8 @@ class Contribution < ApplicationRecord
   has_many :users, through: :user_contributions
 
   def calculate_market_value(vote_value)
+    return if vote_value > company.balance
+
     updated_votes = aggregated_vote_amounts << vote_value
     update(aggregated_vote_amounts: updated_votes)
     number_of_votes = aggregated_vote_amounts.count

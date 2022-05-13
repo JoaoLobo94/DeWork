@@ -19,7 +19,7 @@ class Api::V1::ContributionsController < ApplicationController
   def create
     @new_contribution = Contribution.new(contributions_params)
     @new_contribution.users << current_user
-    @new_contribution.creator = current_user
+    @new_contribution.creator = current_user.id
     @new_contribution.save!
     render json: @new_contribution
   end
