@@ -1,7 +1,9 @@
 class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_contribution, only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value request_participation]
-  before_action :set_company, only: %i[index create accept_finished_contribution]
+  before_action :set_contribution,
+                only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value
+                         request_participation]
+  before_action :set_company, only: %i[index create accept_finished_contribution vote_on_value]
 
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
@@ -63,15 +65,19 @@ class Api::V1::ContributionsController < ApplicationController
   def vote_on_value
     return unless contributions_params[:value]
 
-    @contribution.calculate_market_value(contributions_params[:value])
-    render :success
+    contribution = @contribution.calculate_market_value(contributions_params[:value])
+    if contribution
+      render :success
+    else
+      render status: :accepted, json: "Value greater than total value of company (#{@company.balance} BTC)"
+    end
   end
 
   private
 
   def contributions_params
     params.permit(:pull_request, :job_type, :company_id, :user_to_add,
-                  :accept_start_work_contribution, :accept_finished_contribution, :value, :title, :description)
+                  :accept_start_work_contribution, :accept_finished_contribution, :value, :title, :description, :contribution_id)
   end
 
   def set_company
@@ -79,6 +85,6 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def set_contribution
-    @contribution = Contribution.find(contributions_params[:id])
+    @contribution = Contribution.find(contributions_params[:contribution_id])
   end
 end

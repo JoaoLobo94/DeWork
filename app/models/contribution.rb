@@ -32,7 +32,8 @@ class Contribution < ApplicationRecord
   has_many :users, through: :user_contributions
 
   def calculate_market_value(vote_value)
-    return if vote_value > company.balance
+    vote_value = vote_value.to_f
+    return false if vote_value > company.balance
 
     updated_votes = aggregated_vote_amounts << vote_value
     update(aggregated_vote_amounts: updated_votes)
@@ -44,7 +45,7 @@ class Contribution < ApplicationRecord
       sorted_votes.shift(rounded_quarter_of_votes)
       sorted_votes.pop(rounded_quarter_of_votes)
       number_of_votes_for_mean = sorted_votes.count
-      market_value = number_of_votes_for_mean.sum(0.0) / number_of_votes_for_mean.count
+      market_value = sorted_votes.sum(0.0) / number_of_votes_for_mean
     else
       market_value = aggregated_vote_amounts.sum(0.0) / number_of_votes
     end
