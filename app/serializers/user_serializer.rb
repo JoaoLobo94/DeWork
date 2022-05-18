@@ -19,6 +19,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
+#  telegram               :string
 #  tokens                 :json
 #  uid                    :string           default(""), not null
 #  wallet                 :string
@@ -34,5 +35,5 @@
 #  index_users_on_wallet                (wallet) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :pub_key, :job, :email
+  attributes :id, :name, :pub_key, :job, :email, :telegram
 end
