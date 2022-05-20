@@ -15,10 +15,11 @@ Rails.application.routes.draw do
           resources :participation_requests, only: [:create, :index] do
             get 'accept_participation' => 'participation_requests#accept_participation'
           end
+          get 'users_of_contribution' => 'contributions#index_users_of_contribution'
           post 'vote' => 'contributions#vote_on_value'
-          get 'user_contributions' => 'companies#index_user_contributions'
+          get 'user_contributions' => 'contributions#index_user_contributions'
           get 'check_balance' => 'contributions#balance'
-          get 'add_user' => 'contributions#add_user_to_contribution'
+          post 'add_user' => 'contributions#add_user_to_contribution'
           get 'start_work' => 'contributions#accept_start_work_contribution'
           get 'merge_request' => 'contributions#accept_finished_contribution'
         end

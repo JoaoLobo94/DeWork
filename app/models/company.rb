@@ -44,6 +44,8 @@ class Company < ApplicationRecord
   end
 
   def bulk_funds_transfer(total_amount, receivers)
+    return if total_amount.nil?
+
     amount_of_transfers = receivers.count
     amount_for_each = total_amount / amount_of_transfers
 

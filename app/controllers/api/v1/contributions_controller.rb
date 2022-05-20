@@ -2,12 +2,16 @@ class Api::V1::ContributionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_contribution,
                 only: %i[show update balance set_contribution accept_start_work_contribution accept_finished_contribution vote_on_value
-                         request_participation]
+                         request_participation index_users_of_contribution add_user_to_contribution]
   before_action :set_company, only: %i[index create accept_finished_contribution vote_on_value]
 
   def index_user_contributions
     @user_contributions = Contribution.find(UserContribution.where(user_id: current_user.id).ids)
     render json: @user_contributions
+  end
+
+  def index_users_of_contribution
+    render json: @contribution.users
   end
 
   def index
@@ -37,7 +41,10 @@ class Api::V1::ContributionsController < ApplicationController
 
   def add_user_to_contribution
     if current_user.id == @contribution.creator
-      @contribution.users << user_to_add
+      user = User.find_by(email: contributions_params[:user_to_add])
+      return render json: 'User not added' if user.nil?
+
+      @contribution.users << user
       @contribution.save!
       render :success
     else
@@ -46,7 +53,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def accept_start_work_contribution
-    return unless @contribution.company.owner.id == current_user.id
+    return unless @contribution.company.owner == current_user.id
 
     @contribution.accepted_for_start = true
     @contribution.save!
@@ -54,7 +61,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def accept_finished_contribution
-    return unless @contribution.company.owner.id == current_user.id
+    return unless @contribution.company.owner == current_user.id
 
     @contribution.merged = true
     @contribution.save!
