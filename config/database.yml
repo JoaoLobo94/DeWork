@@ -85,3 +85,8 @@ production:
   <<: *default
   host: postgres
   database: dework_production
+
+staging:
+  <<: *default
+  host: postgres
+  database: dework_staging

@@ -1,0 +1,37 @@
+version: "3.4"
+volumes:
+  db-data:
+    external: false
+
+services:
+  postgres:
+    container_name: "dework_postgres_staging"
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: --
+      POSTGRES_PASSWORD: --
+    volumes:
+      - db-data:/usr/local/pgsql/data_staging
+  rails:
+    image: registry.digitalocean.com/dework/rails_staging:latest
+    environment:
+      BLOCKCYPHER_API: --
+      NETWORK: test
+      CURRENCY: bcy
+      GITHUB: --
+      SECRET_KEY_BASE: --
+      POSTGRES_USER: --
+      POSTGRES_PASSWORD: --
+      VIRTUAL_HOST: logic-staging.tallypeer.com
+      VIRTUAL_PORT: 3001
+      LETSENCRYPT_HOST: logic-staging.tallypeer.com
+    ports:
+      - 3001
+    container_name: "dework_backend_staging"
+    depends_on:
+      - postgres
+
+networks:
+  default:
+    external:
+      name: proxy

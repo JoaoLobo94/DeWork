@@ -8,24 +8,22 @@ services:
     container_name: "dework-postgres"
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: --
+      POSTGRES_PASSWORD: --
     volumes:
       - db-data:/usr/local/pgsql/data
   rails:
     environment:
-      BLOCKCYPHER_API: 996808f22e4d4e959d661f43a1ed0af4
+      BLOCKCYPHER_API: --
       NETWORK: test
       CURRENCY: bcy
-      GITHUB: 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
-      SECRET_KEY_BASE: afedc57daac937ce4e409305419738b79ade9b6c8ce5d15a18588b8b73da3f6004f4e235486280c20c5818c2200332d9ce580fc5e4390a776f9136870a7c7324
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: --
+      POSTGRES_PASSWORD: --
     container_name: "dework_backend"
     build:
       dockerfile: Dockerfile
       context: .
     ports:
-      - "3001:3001"
+      - 5000
     depends_on:
       - postgres
