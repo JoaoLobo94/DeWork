@@ -12,6 +12,7 @@
 #  merged                  :boolean          default(FALSE)
 #  pull_request            :string
 #  title                   :string
+#  users_that_voted        :json
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  company_id              :bigint
@@ -31,12 +32,13 @@ class Contribution < ApplicationRecord
   has_many :replies
   has_many :users, through: :user_contributions
 
-  def calculate_market_value(vote_value)
+  def calculate_market_value(vote_value, user_id)
     vote_value = vote_value.to_f
-    return false if vote_value > company.balance
+    return false if vote_value > company.balance || merged || users_that_voted.include?(user_id)
 
+    updated_users = users_that_voted << user_id
     updated_votes = aggregated_vote_amounts << vote_value
-    update(aggregated_vote_amounts: updated_votes)
+    update(aggregated_vote_amounts: updated_votes, users_that_voted: updated_users)
     number_of_votes = aggregated_vote_amounts.count
     if number_of_votes > 10
       one_quarter_of_votes = 0.25 * number_of_votes

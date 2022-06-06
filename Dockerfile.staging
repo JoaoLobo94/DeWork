@@ -18,4 +18,4 @@ RUN [ -z ${SECRET_KEY_BASE} ] \
 
 EXPOSE 3001
 
-CMD ["bundle", "exec", "rails db:create && rails db:migrate && bundle exec rackup -s puma -p 3001 --host 0.0.0.0"]
+CMD ["bundle", "exec", "rails db:migrate && bundle exec rackup -s puma -p 3001 --host 0.0.0.0"]

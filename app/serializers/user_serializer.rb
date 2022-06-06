@@ -35,5 +35,5 @@
 #  index_users_on_wallet                (wallet) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :pub_key, :job, :email, :telegram
+  attributes :id, :name, :wallet, :job, :email, :telegram
 end

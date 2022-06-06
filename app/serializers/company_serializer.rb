@@ -23,5 +23,5 @@
 #  index_companies_on_wallet   (wallet) UNIQUE
 #
 class CompanySerializer < ActiveModel::Serializer
-  attributes :id, :name, :pub_key, :description, :github, :owner, :balance
+  attributes :id, :name, :wallet, :description, :github, :owner, :balance
 end

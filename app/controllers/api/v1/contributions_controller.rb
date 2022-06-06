@@ -72,9 +72,9 @@ class Api::V1::ContributionsController < ApplicationController
   def vote_on_value
     return unless contributions_params[:value]
 
-    contribution = @contribution.calculate_market_value(contributions_params[:value])
+    contribution = @contribution.calculate_market_value(contributions_params[:value], current_user.id)
     if contribution
-      render :success
+      render json: @contribution.current_value
     else
       render status: :accepted, json: "Value greater than total value of company (#{@company.balance} BTC)"
     end

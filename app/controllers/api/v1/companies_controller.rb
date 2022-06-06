@@ -36,7 +36,8 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def balance
-    render json: @company.get_balance
+    @company.get_balance
+    render json: @company.balance.to_i
   end
 
   private
