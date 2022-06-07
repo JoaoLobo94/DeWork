@@ -35,7 +35,7 @@ class Company < ApplicationRecord
   end
 
   def transfer_funds(amount, receiving_wallet)
-    BlockcypherService.new.new_transaction(wallet, receiving_wallet, amount)
+    BlockcypherService.new.new_transaction(wallet, receiving_wallet, amount, p_key)
   end
 
   def get_balance

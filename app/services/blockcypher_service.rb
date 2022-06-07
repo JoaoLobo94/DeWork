@@ -44,9 +44,15 @@ class BlockcypherService
     @node_connection.wallet_delete(name)
   end
 
-  def new_transaction(sending_address, receiving_address, amount)
-    @node_connection.transaction_new([sending_address], [receiving_address], amount.to_i)
+  def new_transaction(sending_address, receiving_address, amount, private_key)
+    tx_skeleton = @node_connection.transaction_new([sending_address], [receiving_address], amount.to_i)
+    send_transaction(tx_skeleton, private_key)
   end
+
+  def send_transaction(skeleton, private_key)
+    @node_connection.transaction_sign_and_send(skeleton, private_key)
+  end
+
 
   def transaction_status(txid)
     @node_connection.blockchain_transaction(txid)
