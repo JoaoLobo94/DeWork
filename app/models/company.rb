@@ -49,8 +49,8 @@ class Company < ApplicationRecord
     amount_of_transfers = receivers.count
     amount_for_each = total_amount / amount_of_transfers
 
-    receivers.each  do |receiver|
-      transfer_funds(amount_for_each, receiver.wallet)
+    receivers.each  do |receivers|
+      transfer_funds(amount_for_each, receivers.wallet)
     end
   end
 end
