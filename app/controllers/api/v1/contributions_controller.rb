@@ -40,7 +40,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def add_user_to_contribution
-    if current_user.id == @contribution.creator
+    if current_user.id == @contribution.creator || current_user.super_admin
       user = User.find_by(email: contributions_params[:user_to_add])
       return render json: 'User not added' if user.nil?
 
@@ -53,7 +53,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def accept_start_work_contribution
-    return unless @contribution.company.owner == current_user.id
+    return unless @contribution.company.owner == current_user.id || current_user.super_admin
 
     @contribution.accepted_for_start = true
     @contribution.save!
@@ -61,7 +61,7 @@ class Api::V1::ContributionsController < ApplicationController
   end
 
   def accept_finished_contribution
-    return unless @contribution.company.owner == current_user.id
+    return unless @contribution.company.owner == current_user.id || current_user.super_admin
 
     @contribution.merged = true
     @contribution.save!
@@ -72,12 +72,20 @@ class Api::V1::ContributionsController < ApplicationController
   def vote_on_value
     return unless contributions_params[:value]
 
-    contribution = @contribution.calculate_market_value(contributions_params[:value], current_user.id)
-    if contribution
-      render json: @contribution.current_value
-    else
-      render status: :accepted, json: "Value greater than total value of company (#{@company.balance} BTC)"
+    # contribution = @contribution.calculate_market_value(contributions_params[:value], current_user.id)
+    # if contribution
+    #   render json: @contribution.current_value
+    # else
+    #   render status: :accepted, json: "Value greater than total value of company (#{@company.balance} BTC)"
+    # end
+    unless @contribution.company.owner == current_user.id || current_user.super_admin
+      render status: :accepted, json: 'You are not authorized to vote on this contribution'
+      return
     end
+
+    @contribution.current_value = contributions_params[:value]
+    @contribution.save!
+    render json: @contribution.current_value
   end
 
   private

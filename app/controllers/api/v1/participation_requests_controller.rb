@@ -11,7 +11,7 @@ class Api::V1::ParticipationRequestsController < ApplicationController
   end
 
   def accept_participation
-    if Company.find(participation_requests_params[:company_id]).owner == current_user.id
+    if Company.find(participation_requests_params[:company_id]).owner == current_user.id || current_user.super_admin
       ParticipationRequest.find(participation_requests_params[:id]).update(accepted: accepted)
     end
     render :success

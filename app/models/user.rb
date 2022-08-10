@@ -19,6 +19,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
+#  super_admin            :boolean          default(FALSE)
 #  telegram               :string
 #  tokens                 :json
 #  uid                    :string           default(""), not null
